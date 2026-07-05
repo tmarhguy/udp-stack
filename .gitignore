@@ -1,0 +1,41 @@
+# Obsidian
+/log/.obsidian/
+
+# Vivado generated (project name: core)
+core/core.runs/
+core/core.cache/
+core/core.hw/
+core/core.ip_user_files/
+core/core.sim/
+core/.Xil/
+*.jou
+*.log
+*.pb
+*.rpt
+*.rpx
+*.wdf
+*.wpc
+
+# Legacy Vivado paths (if present)
+udp-stack.runs/
+udp-stack.cache/
+udp-stack.hw/
+udp-stack.ip_user_files/
+udp-stack.sim/
+
+# Simulation build artifacts
+sim/cocotb/sim_build/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
