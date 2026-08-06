@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cocotb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+          pip install -r sim/requirements.txt
+      - name: Run loopback tests
+        run: |
+          cd sim/cocotb
+          python run_tests.py
+      - name: Run unit tests
+        run: |
+          cd sim/cocotb
+          TEST=udp python run_tests.py
+          TEST=ip python run_tests.py
+          TEST=arp python run_tests.py
+          TEST=mac python run_tests.py
+      - name: Upload latency results
+        uses: actions/upload-artifact@v4
+        with:
+          name: latency-summary
+          path: sim/results/latency_summary.json
