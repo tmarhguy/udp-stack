@@ -12,7 +12,7 @@
 
 SystemVerilog · cocotb · Python · Vivado · [github.com/tmarhguy/udp-stack](https://github.com/tmarhguy/udp-stack)
 
-**See also:** [Understanding the UDP Stack and Connecting to ITCH](https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/) · [ITCH Ethernet lab bring-up](https://www.tmarhguy.com/writing/2026-08-01-itch-ethernet-lab-bring-up/) · [ITCH synthesis / bitstream](https://www.tmarhguy.com/writing/2026-08-02-successful-synthesis-implementation-bitstream/) · [NASDAQ ITCH Hardware Parser](https://github.com/tmarhguy/itch)
+**See also:** [Understanding the UDP Stack and Connecting to ITCH](https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/) · [ITCH Ethernet lab bring-up](https://www.tmarhguy.com/writing/2026-08-01-itch-ethernet-lab-bring-up/) · [ITCH synthesis / bitstream](https://www.tmarhguy.com/writing/2026-08-02-successful-synthesis-implementation-bitstream/) · [NASDAQ ITCH Hardware Parser](https://github.com/tmarhguy/itch-hw)
 
 ---
 
