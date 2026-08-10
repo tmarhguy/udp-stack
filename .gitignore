@@ -7,6 +7,7 @@ core/core.cache/
 core/core.hw/
 core/core.ip_user_files/
 core/core.sim/
+core/core.srcs/
 core/.Xil/
 *.jou
 *.log
