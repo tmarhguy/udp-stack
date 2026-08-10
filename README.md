@@ -79,8 +79,8 @@ Today the proof point is a **UDP echo**: send a datagram from the host, get it b
 Simulation comes first: cocotb replays synthetic Ethernet frames against the stack core. **2-cycle** loopback latency before the bitstream gets trusted.
 
 <p align="center">
-  <img src="media/schematics_left.png" alt="Synthesized RTL schematic (left) — board I/O and PHY/MAC ingress" width="47%" />
-  <img src="media/schematics_right.png" alt="Synthesized RTL schematic (right) — UDP stack core, 7-segment, and RMII egress" width="50%" />
+  <img src="media/schematics_left.png" alt="Synthesized RTL schematic (left) — board I/O and PHY/MAC ingress" width="90%" />
+  <img src="media/schematics_right.png" alt="Synthesized RTL schematic (right) — UDP stack core, 7-segment, and RMII egress" width="90%" />
 </p>
 
 <p align="center"><em>Left: board I/O + PHY/MAC · Right: <code>u_stack</code>, 7-segment, RMII egress</em></p>
