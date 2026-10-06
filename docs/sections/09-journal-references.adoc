@@ -1,0 +1,72 @@
+[#journal]
+== Journal and References
+
+Design narrative, public essays, companion repos, and the doc map.
+The journal is the argument; this manual is the map.
+
+=== Design journal
+
+`log/` holds the running lab record:
+
+[cols="1,2",options="header"]
+|===
+| Log | Topic
+
+| `log/2026-08-08 - Understanding the UDP stack and connecting to ITCH.md`
+| Why UDP, TCP three-way-handshake cost, hardware advantage (FPGA ns vs PCIe/OS), multicast goal — the Wharton open-book origin
+|===
+
+Core argument in one table (from the log):
+
+[cols="1,1,1,2",options="header"]
+|===
+| Protocol | Priority | Analogy | Integrity
+
+| *TCP* | Reliability | Downloading a file | ordered, retransmitted, never drops — pauses on loss
+| *UDP* | Speed & recency | Live video call | drops stale frames, always pushes latest
+|===
+
+Exchanges push market data over UDP multicast: fire the newest update,
+drop anything stale, keep moving. Parsing ITCH in hardware puts the FPGA
+in the loop instead of kernel buffers and interrupts.
+
+=== Writing (tmarhguy.com)
+
+[cols="1,2",options="header"]
+|===
+| Essay | Topic
+
+| https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/[Understanding the UDP Stack and Connecting to ITCH]
+| TCP vs UDP for market data, public version of the log
+
+| https://www.tmarhguy.com/writing/2026-08-01-itch-ethernet-lab-bring-up/[ITCH Ethernet lab bring-up]
+| Cable, link LED, end-to-end bench goal
+
+| https://www.tmarhguy.com/writing/2026-08-02-successful-synthesis-implementation-bitstream/[ITCH synthesis / bitstream]
+| First clean Vivado run (Aug 02, `itch` context)
+|===
+
+=== Companion repos
+
+* https://github.com/tmarhguy/itch[NASDAQ ITCH hardware parser] — consumes this stack's payload stream.
+* https://github.com/tmarhguy/itch-hw[itch-hw] — earlier hardware parser reference from the log.
+* https://github.com/tmarhguy/sealion-search-engine[SeaLion] and https://github.com/tmarhguy/mac-unit[MAC unit] — sister projects sharing this manual's theme and layout.
+
+=== Doc map
+
+[cols="1,2",options="header"]
+|===
+| Doc | What's in it
+
+| `docs/README.md` | Documentation index (short form)
+| `docs/architecture.md` | Datapath, modules, clocks
+| `docs/board_setup.md` | Cable, LEDs, host IP, traffic
+| `docs/metrics.md` | Timing, utilization, latency from reports
+| `docs/bitstream.md` | Vivado build flow and output path
+| `core/README.md` | Vivado GUI project setup
+| `log/` | Design journal
+|===
+
+TIP: Cite reports by filename (`top_timing_summary_routed.rpt`) and
+screenshots by `media/` path so any reader can re-derive the numbers in
+<<implementation,Implementation>>.

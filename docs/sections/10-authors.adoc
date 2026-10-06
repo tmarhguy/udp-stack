@@ -1,0 +1,22 @@
+[#authors]
+== Authors
+
+The manual and the stack are produced by the author behind the design
+and the public build log.
+
+=== Tyrone Marhguy
+
+Computer Engineering '28, University of Pennsylvania.
+Personal FPGA project: custom UDP/IP on Nexys A7, companion stack for
+hardware ITCH parsing, and a public build log at `tmarhguy.com`.
+
+++++
+<div class="author-links">
+<a href="https://tmarhguy.com" target="_blank" rel="noopener">Website</a><a href="https://github.com/tmarhguy" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/tmarhguy/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:tmarhguy@engineering.upenn.edu">Email</a><a href="https://x.com/marhguy_tyrone" target="_blank" rel="noopener">X</a><a href="https://www.instagram.com/tmarhguy/" target="_blank" rel="noopener">Instagram</a><a href="https://tmarhguy.substack.com" target="_blank" rel="noopener">Substack</a>
+</div>
+++++
+
+Questions or collabs — reach out. See also
+https://tmarhguy.com/projects/[projects] and
+https://tmarhguy.com/writing/[engineering log] for Tomato, SeaLion,
+FramePort, and the ITCH series this stack supports.

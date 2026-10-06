@@ -1,0 +1,102 @@
+[#interfaces]
+== Interfaces
+
+How operators and scripts touch the system: lab addresses, host tools,
+LEDs, 7-segment, and pin constraints.
+
+=== Network addresses
+
+From `core/rtl/top.sv` and `core/rtl/stack/udp_stack_core.sv`:
+
+[cols="1,2",options="header"]
+|===
+| Field | Value
+
+| FPGA IP | `192.168.1.10`
+| Host IP | `192.168.1.100`
+| UDP port | `50000`
+| Host MAC | set `HOST_MAC` in `top.sv` to your PC's MAC
+|===
+
+Edit before building for a new host:
+
+[source,systemverilog]
+----
+localparam logic [47:0] HOST_MAC = 48'h00_08_DC_12_34_56;
+localparam logic [31:0] HOST_IP  = {8'd192, 8'd168, 8'd1, 8'd100};
+----
+
+=== Host tools
+
+`tools/send_udp.py` — send a datagram and wait for the echo:
+
+[source,bash]
+----
+# Direct cable without ARP — broadcast works
+python tools/send_udp.py --host 255.255.255.255 --port 50000
+
+# Targeted echo with custom payload
+python tools/send_udp.py --host 192.168.1.10 --port 50000 --payload "echo-test"
+
+# Repeat N times
+python tools/send_udp.py --host 192.168.1.10 --port 50000 --payload "bench" --repeat 10
+----
+
+`tools/bench_check.py` — wire-level sanity wrapper around the above
+(`--host 255.255.255.255 --payload bench`):
+
+[source,bash]
+----
+python tools/bench_check.py
+----
+
+Both use plain UDP sockets with `SO_BROADCAST` and a 2 s reply timeout.
+`No reply (timeout)` means link, address, or bitstream needs checking —
+see <<bring-up,Bring-Up>>.
+
+=== LEDs
+
+From `core/rtl/top.sv`:
+
+.LED map after programming
+[cols="1,2",options="header"]
+|===
+| LED | Meaning
+
+| `[7:0]` | Mirror `SW[7:0]`
+| `[8]`, `[14]` | Heartbeat (~1 Hz, `hb_led`)
+| `[9]` | RX activity pulse (5 M-cycle stretch)
+| `[10]` | TX activity pulse (5 M-cycle stretch)
+| `[11]` | Stack error (`ip_err \| udp_err`, 10 M-cycle stretch)
+| `[12]` | Latency-valid pulse (`latency_valid`)
+| `[13]`, `[15]` | PHY link up (`link_up` from MDIO)
+|===
+
+=== 7-segment display
+
+Right to left on the board (from `seg_value` in `top.sv`):
+
+* *Right 2 digits:* `SW[7:0]` in hex.
+* *Next 2 digits:* heartbeat counter (slowly increments each blink).
+* *Left 4 digits:* `0000`.
+
+=== Pin constraints
+
+`core/constrs/nexys_a7_100t.xdc` maps `top` ports to Nexys A7 pins:
+
+[cols="1,2",options="header"]
+|===
+| Constraint | Purpose
+
+| `CLK100MHZ` @ E3 | 100 MHz board clock, 10 ns
+| `eth_refclk` @ D5 | 50 MHz RMII ref, 20 ns
+| `set_clock_groups -asynchronous` | unrelated clocks for CDC FIFO
+| `CPU_RESETN` @ C12 | center-button reset path (`eth_rstn = CPU_RESETN & ~rst_sync`)
+| `SW[15:0]` / `LED[15:0]` | switches and status above
+| `CA–CG, DP, AN[7:0]` | 7-segment cathodes and anodes
+| `eth_rxd[1:0]/txd[1:0]/txen/crs_dv/mdc/mdio/rstn` | RMII + MDIO to LAN8720
+|===
+
+CAUTION: The XDC must stay paired with `top`. Port names match exactly
+(`CLK100MHZ`, `eth_refclk`, `LED[15:0]`). `constraints/udp_consts.xdc`
+is a legacy copy — `core/constrs/nexys_a7_100t.xdc` is the build truth.

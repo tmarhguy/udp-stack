@@ -1,0 +1,62 @@
+[#bring-up]
+== Bring-Up
+
+Program, cable, and traffic for the echo on the bench.
+`docs/board_setup.md` is the normative short form; this chapter adds
+the GUI flow and checklist in manual order.
+
+=== Vivado project
+
+[cols="1,2",options="header"]
+|===
+| Item | Value
+
+| Toolchain | Vivado *2025.2*
+| Project file | `core/core.xpr`
+| Top module | `top`
+| RTL | `core/rtl/` (15 `.sv` files)
+| Constraints | `core/constrs/nexys_a7_100t.xdc`
+| Part | `xc7a100tcsg324-1`
+| Output | `core/core.runs/impl_1/top.bit`
+|===
+
+GUI flow (full steps in `core/README.md`):
+
+. File → Project → New in `core/`, RTL project, part `xc7a100tcsg324-1`.
+. Add Sources → Add Directories → `core/rtl/` (all 15 files stay checked).
+. Set top: right-click `top.sv` → Set as Top.
+. Add Constraints → `core/constrs/nexys_a7_100t.xdc`.
+. Run Synthesis → Implementation → Generate Bitstream.
+
+=== Program and cable
+
+. Program bitstream: `core/core.runs/impl_1/top.bit`.
+. Connect RJ-45 to the *FPGA Ethernet port*, not a monitor passthrough.
+. Host on `192.168.1.x` (`192.168.1.100` default) or use broadcast.
+
+.Bench — RJ45 connected, heartbeat on 7-segment, link LED near the port
+image::a7_running.gif[Nexys A7 on bench with Ethernet and heartbeat display,align=center,width=560]
+
+.Hardware Manager — `top.bit` on `xc7a100t_0`
+image::hardware_manager.png[Vivado Hardware Manager with top.bit programmed,align=center,width=560]
+
+=== Traffic
+
+[source,bash]
+----
+python tools/send_udp.py --host 255.255.255.255 --port 50000
+python tools/send_udp.py --host 192.168.1.10 --port 50000 --payload "echo-test"
+python tools/bench_check.py
+----
+
+=== Bring-up checklist
+
+. Program bitstream → *LED[8]* blinks ~once per second.
+. Flip switches → *LED[7:0]* follow *SW[7:0]*; right 7-seg digits show hex.
+. Plug Ethernet → *LED[13]/[15]* on when link is up.
+. Send UDP → *LED[9]/[10]* pulse; `send_udp.py` prints `Reply … bytes`.
+
+TIP: If segments stay pale, re-synthesize after confirming
+`rtl/common/seg7_display.sv` is in Design Sources. If no reply, check
+`HOST_MAC`, host subnet, and that the cable is in the FPGA jack.
+Post-route evidence lives in <<implementation,Implementation>>.

@@ -1,0 +1,100 @@
+= 100 Mbps UDP/IP Stack Technical Reference
+:author: Tyrone Marhguy
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
+:icons: font
+:docinfo: shared
+:imagesdir: images
+:stem: latexmath
+:experimental:
+:revdate: 2026-08-10
+:revnumber: v1.0
+
+// Entry point for the static technical manual.
+// Add, remove, or reorder chapters by editing the include list below.
+// Each chapter lives in sections/ as NN-name.adoc with a level-1 (==) heading.
+
+[preface]
+== UDP Stack at a glance
+
+100 Mbps UDP/IP stack in SystemVerilog on the Digilent Nexys A7-100T —
+RMII PHY, MAC, IPv4, UDP, cut-through echo — the networking column so
+`itch` can parse NASDAQ ITCH instead of wondering how bytes got off the cable.
+
+.A7 on the bench — Ethernet in, heartbeat on 7-segment, link LED lit
+image::a7_running.gif[Nexys A7 on the bench with Ethernet connected,align=center,width=532]
+
+++++
+<div style="text-align:center; margin: 1.5rem 0;">
+<a href="https://github.com/tmarhguy/udp-stack" target="_blank" rel="noopener" style="display:inline-block;background:#24292f;color:#ffffff;font-size:20px;font-weight:700;padding:14px 36px;border-radius:10px;text-decoration:none;margin:6px;">GitHub Repository</a>
+<a href="https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/" target="_blank" rel="noopener" style="display:inline-block;background:#1d4e89;color:#ffffff;font-size:20px;font-weight:700;padding:14px 36px;border-radius:10px;text-decoration:none;margin:6px;">Why UDP for ITCH</a>
+</div>
+++++
+
+15 SystemVerilog files implement the full RX-to-TX path in logic.
+Send a datagram to port `50000` and the FPGA returns it with 2-cycle latency.
+
+[cols="1,1",options="header"]
+|===
+| Measured fact (2026-08-10 build) | Value
+
+| UDP payload echo (`loopback_echo` @ 100 MHz)
+| **2 cycles (20 ns)**
+
+| Timing @ 100 MHz
+| **WNS +1.985 ns, WHS +0.037 ns, 0 failing**
+
+| Fabric `xc7a100tcsg324-1`
+| LUT 756 (1.19%), FF 599 (0.47%), IO 52 (24.8%), 0.115 W
+|===
+
+=== About this manual
+
+This is the detailed engineering reference for the project.
+It is the companion to the concise, GitHub-facing `README.md`:
+
+* `README.md` — project identity, status, quick start, bench photos.
+* `docs/` (this manual) — architecture, interfaces, bring-up, verification, and implementation detail in engineering-manual style.
+* `log/` — design journal with the TCP-vs-UDP argument.
+* `tmarhguy.com/writing` — public essays behind the build.
+
+Conventions used throughout:
+
+* `monospace` marks commands, file paths, identifiers, and literals.
+* File paths are repository-relative, e.g. `core/rtl/top.sv`.
+* Measured numbers cite their report or log source. Unmeasured values are `TBD (unmeasured)` — never silently estimated.
+* Normative Markdown (`docs/*.md`, `core/README.md`, `log/`) is linked, not duplicated. This manual summarizes; the source file is truth.
+
+TIP: Start with <<introduction,Introduction>> for scope and reading order,
+then <<architecture,Architecture>> for the system overview.
+The sidebar on the left is collapsible and searchable (press `/`).
+
+// Chapters — reorder freely. Filenames carry a numeric prefix only so
+// directory listings stay in reading order; the visible numbers come
+// from :sectnums:, not from filenames.
+//
+// Blank lines between the includes are significant: they terminate any
+// open block (e.g. a trailing list) in the previous file so the next
+// chapter heading is always parsed as a new section.
+include::sections/01-introduction.adoc[]
+
+include::sections/02-architecture.adoc[]
+
+include::sections/03-design.adoc[]
+
+include::sections/04-interfaces.adoc[]
+
+include::sections/05-bring-up.adoc[]
+
+include::sections/06-verification.adoc[]
+
+include::sections/07-implementation.adoc[]
+
+include::sections/08-limitations.adoc[]
+
+include::sections/09-journal-references.adoc[]
+
+include::sections/10-authors.adoc[]

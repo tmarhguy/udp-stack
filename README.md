@@ -12,6 +12,12 @@
 
 SystemVerilog · cocotb · Python · Vivado · [github.com/tmarhguy/udp-stack](https://github.com/tmarhguy/udp-stack)
 
+<p align="center">
+  <a href="https://tmarhguy.github.io/udp-stack/"><img src="https://img.shields.io/badge/Read_the_Docs-tmarhguy.github.io-2e7d32?style=for-the-badge" alt="Read the Docs" /></a>
+</p>
+
+**Docs:** [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system, built from [`docs/index.adoc`](docs/index.adoc) with `make docs`
+
 **See also:** [Understanding the UDP Stack and Connecting to ITCH](https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/) · [ITCH Ethernet lab bring-up](https://www.tmarhguy.com/writing/2026-08-01-itch-ethernet-lab-bring-up/) · [ITCH synthesis / bitstream](https://www.tmarhguy.com/writing/2026-08-02-successful-synthesis-implementation-bitstream/) · [NASDAQ ITCH Hardware Parser](https://github.com/tmarhguy/itch-hw)
 
 ---
@@ -22,7 +28,7 @@ In conversations with business friends — especially Wharton students — NASDA
 
 **`TCP`** is not your friend if speed is your goal. Three-way handshake, retransmits, kernel buffers — all fine for a file download, all wrong when the only frame that matters is the **latest** one on the wire. **`UDP`** multicast is how exchanges push market data: fire the newest update, drop anything stale, keep moving.
 
-This repo is the **networking column** — RMII PHY, MAC, IPv4, UDP, cut-through echo — so [itch](https://github.com/tmarhguy/itch) can worry about messages instead of wondering how bytes got off the cable. Fifteen SystemVerilog files. No soft CPU. No OS in the hot path.
+This repo is the **networking column** — RMII PHY, MAC, IPv4, UDP, cut-through echo — so [itch](https://github.com/tmarhguy/itch) can worry about messages instead of wondering how bytes got off the cable. The design is 15 SystemVerilog files of dedicated logic covering the full RX-to-TX path.
 
 The [design journal](log/) is where the TCP-vs-UDP argument lives; the [Aug 08 essay](https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/) is the public version. This README is the map.
 
@@ -89,7 +95,7 @@ Simulation comes first: cocotb replays synthetic Ethernet frames against the sta
 
 ## The loop
 
-Every lab session runs the same story. Here the whole arc lives on one FPGA — no host in the hot path.
+Every lab session runs the same story. The full RX-to-TX arc runs on one FPGA.
 
 ```
   HOST IN              STACK                 HOST OUT
@@ -278,8 +284,12 @@ Full bench notes: [docs/board_setup.md](docs/board_setup.md)
 
 ## Docs & notes
 
+- [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system, built from [`docs/index.adoc`](docs/index.adoc) with `make docs`
+- [architecture](docs/architecture.md) — design and build order
+
 | Doc | What's in it |
 |---|---|
+| [docs/index.adoc](docs/index.adoc) | Technical manual source (Asciidoctor book) |
 | [docs/README.md](docs/README.md) | Documentation index |
 | [docs/architecture.md](docs/architecture.md) | Data path, module hierarchy, clocks |
 | [docs/board_setup.md](docs/board_setup.md) | Cable, LEDs, host IP, traffic |
