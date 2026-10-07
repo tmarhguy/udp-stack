@@ -1,0 +1,11 @@
+# Docs dependencies: Python + MkDocs Material only. No Node.js.
+mkdocs-material==9.*
+
+# macOS note (Python 3.14): mkdocs pulls in watchdog for `serve` live-reload,
+# and watchdog 6.0.0 has no prebuilt wheel for cp314, so pip compiles it.
+# If the compile fails with tapi/.tbd "unknown architecture" errors, the
+# Command Line Tools linker is older than the default SDK — point pip at an
+# older SDK for the watchdog build, then install the rest normally:
+#   SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk pip install watchdog
+#   pip install -r requirements-docs.txt
+# CI (Python 3.11) is unaffected — watchdog wheels exist there.

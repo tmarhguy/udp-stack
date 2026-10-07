@@ -1,0 +1,85 @@
+site_name: 100 Mbps UDP/IP Stack
+site_description: SystemVerilog UDP/IPv4/Ethernet stack for the Nexys A7-100T — RMII PHY, MAC, cut-through echo, verified in cocotb and closed at 100 MHz in Vivado.
+site_author: Tyrone Marhguy
+site_url: https://tmarhguy.github.io/udp-stack/
+repo_url: https://github.com/tmarhguy/udp-stack
+repo_name: tmarhguy/udp-stack
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: null
+  favicon: null
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.indexes
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __
+      pygments_lang_class: true
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/shortcuts.js
+
+# Numbered-book sidebar, borrowed from the shared AsciiDoc manual template:
+# an unnumbered preface glance page, then sequentially numbered chapters,
+# then appendices for reference material. Sub-pages carry dotted numbers.
+nav:
+  - UDP Stack at a Glance: index.md
+  - 1. Introduction: introduction.md
+  - 2. Architecture: architecture/overview.md
+  - 3. Design: architecture/design.md
+  - 4. Interfaces: architecture/interfaces.md
+  - 5. Bring-Up:
+      - 5.1 Requirements: getting-started/requirements.md
+      - 5.2 Building the Bitstream: getting-started/build.md
+      - 5.3 Running on the Bench: getting-started/running.md
+  - 6. Verification: verification/strategy.md
+  - 7. Implementation: verification/results.md
+  - 8. Known Limitations: limitations.md
+  - 9. Journal and References:
+      - 9.1 Log Index: engineering-log/index.md
+      - 9.2 2026-08-08 — Understanding UDP and ITCH: engineering-log/2026-08-08-understanding-udp-itch.md
+  - 10. Authors: authors.md
+  - Appendix A. Configuration: reference/configuration.md
+  - Appendix B. Repository Layout: reference/repository.md

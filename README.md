@@ -16,7 +16,7 @@ SystemVerilog · cocotb · Python · Vivado · [github.com/tmarhguy/udp-stack](h
   <a href="https://tmarhguy.github.io/udp-stack/"><img src="https://img.shields.io/badge/Read_the_Docs-tmarhguy.github.io-2e7d32?style=for-the-badge" alt="Read the Docs" /></a>
 </p>
 
-**Docs:** [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system, built from [`docs/index.adoc`](docs/index.adoc) with `make docs`
+**Docs:** [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system, built with Material for MkDocs. Preview locally with `pip install -r requirements-docs.txt && mkdocs serve --dev-addr localhost:8000`
 
 **See also:** [Understanding the UDP Stack and Connecting to ITCH](https://www.tmarhguy.com/writing/2026-08-08-understanding-udp-stack-and-connecting-to-itch/) · [ITCH Ethernet lab bring-up](https://www.tmarhguy.com/writing/2026-08-01-itch-ethernet-lab-bring-up/) · [ITCH synthesis / bitstream](https://www.tmarhguy.com/writing/2026-08-02-successful-synthesis-implementation-bitstream/) · [NASDAQ ITCH Hardware Parser](https://github.com/tmarhguy/itch-hw)
 
@@ -67,7 +67,7 @@ The [design journal](log/) is where the TCP-vs-UDP argument lives; the [Aug 08 e
 | **Sim latency** | UDP payload echo **2 cy** (20 ns) on `loopback_echo` @ 100 MHz |
 | **Bitstream** | `core/core.runs/impl_1/top.bit` · Vivado **2025.2** |
 
-Details: [docs/metrics.md](docs/metrics.md) · Vivado GUI walkthrough: [core/README.md](core/README.md)
+Details: [Results and Measurements](https://tmarhguy.github.io/udp-stack/verification/results/) · Vivado GUI walkthrough: [core/README.md](core/README.md)
 
 ---
 
@@ -264,7 +264,7 @@ Or targeted:
 python tools/bench_check.py
 ```
 
-Full bench notes: [docs/board_setup.md](docs/board_setup.md)
+Full bench notes: [Running on the Bench](https://tmarhguy.github.io/udp-stack/getting-started/running/)
 
 ### LEDs (after programming)
 
@@ -284,16 +284,15 @@ Full bench notes: [docs/board_setup.md](docs/board_setup.md)
 
 ## Docs & notes
 
-- [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system, built from [`docs/index.adoc`](docs/index.adoc) with `make docs`
-- [architecture](docs/architecture.md) — design and build order
+- [Technical manual](https://tmarhguy.github.io/udp-stack/) — the whole system (Material for MkDocs, `docs/`, preview with `mkdocs serve --dev-addr localhost:8000`)
+- [Architecture](https://tmarhguy.github.io/udp-stack/architecture/overview/) — system overview, layer design, interfaces
 
 | Doc | What's in it |
 |---|---|
-| [docs/index.adoc](docs/index.adoc) | Technical manual source (Asciidoctor book) |
-| [docs/README.md](docs/README.md) | Documentation index |
-| [docs/architecture.md](docs/architecture.md) | Data path, module hierarchy, clocks |
-| [docs/board_setup.md](docs/board_setup.md) | Cable, LEDs, host IP, traffic |
-| [docs/metrics.md](docs/metrics.md) | Timing, utilization, latency — sourced from reports |
+| [docs/](docs/) | Documentation source (Material for MkDocs) |
+| [Architecture](https://tmarhguy.github.io/udp-stack/architecture/overview/) | Data path, module hierarchy, clocks |
+| [Running on the Bench](https://tmarhguy.github.io/udp-stack/getting-started/running/) | Cable, LEDs, host IP, traffic |
+| [Results](https://tmarhguy.github.io/udp-stack/verification/results/) | Timing, utilization, latency — sourced from reports |
 | [core/README.md](core/README.md) | Vivado GUI project setup |
 | [log/](log/) | Design journal |
 

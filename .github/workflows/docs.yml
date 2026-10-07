@@ -5,13 +5,17 @@ on:
     branches: ["**"]
     paths:
       - "docs/**"
-      - "scripts/build-docs.sh"
+      - "media/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
       - "Makefile"
       - ".github/workflows/docs.yml"
   pull_request:
     paths:
       - "docs/**"
-      - "scripts/build-docs.sh"
+      - "media/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
       - "Makefile"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
@@ -31,16 +35,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Asciidoctor
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y asciidoctor
-      - name: Build docs
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install docs dependencies
+        run: pip install -r requirements-docs.txt
+      - name: Build docs (strict)
         run: make docs
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/docs
+          path: site
 
   deploy:
     needs: build
