@@ -1,0 +1,19 @@
+[#interfaces]
+== Interfaces
+
+The bench face of the stack is the RJ45, a handful of LEDs, the 7-segment heartbeat, and two Python tools.
+
+[cols="1,2",options="header"]
+|===
+| Signal | Meaning
+
+| `LED[9]` / `LED[10]` | RX / TX pulse
+| `LED[12]` | Echo cycle count
+| `LED[13]` / `LED[15]` | Link up
+| Port `50000` | UDP destination the filter accepts
+|===
+
+`send_udp.py` and `bench_check.py` send the datagram, including broadcast for a direct cable. Pin constraints live in `nexys_a7_100t.xdc` and match `eth_rxd`, `eth_txd`, `mdc`, and `mdio` in `top.sv`.
+
+.Hardware manager with the programmed part
+image::hardware_manager.png[Vivado hardware manager showing the Nexys A7 programmed with the UDP stack,align=center]

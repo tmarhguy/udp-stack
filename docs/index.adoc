@@ -1,0 +1,67 @@
+= UDP Stack Technical Reference Manual
+:author: Tyrone Marhguy
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
+:icons!:
+:stylesheet!:
+:webfonts!:
+:docinfo: shared
+:imagesdir: images
+:experimental:
+
+[#overview]
+[preface]
+== Packets, with no processor in the path
+
+This design sends and receives network packets in hardware. It implements Ethernet, IP, and UDP on a Digilent Nexys A7 FPGA board. There is no processor on the data path: the packet is handled as it arrives. A packet sent to port 50000 is echoed. In simulation the payload comes back in 2 clock cycles, which is 20 ns at 100 MHz.
+
+++++
+<!-- docs-hero -->
+++++
+
+Last Vivado build: 2026-08-10, Vivado 2025.2, part `xc7a100tcsg324-1`.
+
+[cols="1,2",options="header"]
+|===
+| Fact | Value
+
+| Payload echo
+| 2 cycles (20 ns) at 100 MHz
+
+| Timing
+| WNS +1.985 ns, WHS +0.037 ns, 0 failing endpoints
+
+| Fabric
+| 756 LUT (1.19%), 599 FF (0.47%), 52 IOB (24.8%), 0.115 W
+|===
+
+.Post-route utilization
+image::utilization.svg[Post-route utilization. LUT 1.19 percent. Flip-flops 0.47 percent. I/O 24.8 percent. BUFG 6.25 percent.,width=800]
+
+include::sections/01-introduction.adoc[]
+
+include::sections/02-architecture.adoc[]
+
+include::sections/03-design.adoc[]
+
+include::sections/04-interfaces.adoc[]
+
+include::sections/05-bring-up.adoc[]
+
+include::sections/06-verification.adoc[]
+
+include::sections/07-implementation.adoc[]
+
+include::sections/08-performance.adoc[]
+
+include::sections/09-limitations.adoc[]
+
+ifdef::has-logs[]
+include::sections/generated/engineering-log.adoc[]
+
+endif::[]
+
+include::theme/about.adoc[]

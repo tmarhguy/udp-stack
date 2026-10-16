@@ -1,0 +1,17 @@
+[#bring-up]
+== Bring-up
+
+The bitstream is built in Vivado 2025.2 from `core/rtl/`. The GUI walkthrough is `core/README.md`. The post-route result for that output is <<implementation>>: WNS +1.985 ns at 100 MHz on the 2026-08-10 build.
+
+=== On the bench
+
+.Nexys A7 running the stack
+image::a7_running.gif[Nexys A7 on the bench with Ethernet connected, the link LED lit, and the 7-segment heartbeat,align=center]
+
+. Ethernet cable to the host or a direct cable using broadcast.
+. Program `top.bit`.
+. Confirm link LEDs before sending a packet.
+. `send_udp.py` to port `50000`.
+. The FPGA returns the datagram. `LED[12]` shows the measured cycle count.
+
+Switch-mirrored LEDs and the 7-segment heartbeat show the bitstream is alive before any packet is sent.

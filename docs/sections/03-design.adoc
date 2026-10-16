@@ -1,0 +1,14 @@
+[#design]
+== Design
+
+Each layer drops what it does not understand. A packet is echoed only when it is IPv4, UDP, destination-IP match, and destination port `50000`.
+
+* RMII RX and MDIO link detect, with a 50/100 MHz clock-domain crossing. `link_up` drives `LED[13]` and `LED[15]`.
+* `eth_mac_axis` strips the RX preamble and emits TX preamble, FCS, and interframe gap.
+* `ip_rx` parses the IPv4 header and filters on destination address. Non-UDP IPv4 raises `ip_error` and is dropped.
+* `udp_rx` filters destination port `50000`.
+* `loopback_echo` forwards the payload cut-through. Simulation latency is 2 cycles.
+* `stack_tx` rebuilds headers with source and destination swapped. TX IP and UDP checksums are zero-filled lab values. RX does not validate checksums beyond structure and the filter.
+* ARP is detected by EtherType and stored in a single-entry `arp_cache`. Dynamic lookup is not wired. Pre-seed `HOST_MAC` in `top.sv`, or use broadcast `255.255.255.255` on a direct cable.
+
+TCP, DHCP, and ICMP are dropped.

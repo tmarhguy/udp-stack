@@ -1,0 +1,11 @@
+[#verification]
+== Verification
+
+cocotb covers the loopback plus UDP, IP, ARP, and MAC gates. The latency source is `sim/results/latency_summary.json`.
+
+The payload loopback budget is at most 20 cycles. The measured echo is 2 cycles, 20 ns at 100 MHz.
+
+.Echo latency against the 20-cycle budget
+image::echo-latency.svg[Measured UDP echo latency of 2 cycles against a 20-cycle budget,width=800]
+
+A passing sim does not replace the bench photo. Silicon evidence is the programmed part in <<bring-up>> and the routed reports in <<implementation>>.

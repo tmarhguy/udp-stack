@@ -1,0 +1,26 @@
+{
+  "title": "UDP echo path",
+  "subtitle": "Cut-through loop on one FPGA",
+  "rows": [
+    [
+      "RMII PHY",
+      "LAN8720 ingress."
+    ],
+    [
+      "MAC",
+      "Preamble strip on receive, FCS on transmit."
+    ],
+    [
+      "IPv4 and UDP",
+      "Destination filter, port 50000."
+    ],
+    [
+      "Echo",
+      "Swap headers. 2-cycle payload latency in simulation."
+    ],
+    [
+      "RMII egress",
+      "The reply leaves through the same PHY."
+    ]
+  ]
+}

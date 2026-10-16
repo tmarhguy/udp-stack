@@ -1,0 +1,28 @@
+[#architecture]
+== Architecture
+
+Every lab session is the same loop on one FPGA. Live traffic hits the LAN8720. Payload bytes reach `loopback_echo` without a CPU copy. The reply rebuilds Ethernet, IPv4, and UDP headers with swapped addresses and leaves through the same PHY.
+
+.Cut-through echo
+image::udp-datapath.svg[RX path from the RMII PHY through MAC, IPv4, UDP, and echo, then back out,width=800]
+
+=== Hierarchy
+
+Inside `udp_stack_core`: `eth_demux` to `ip_rx` to `udp_rx` to `loopback_echo` to `axis_fifo` to `stack_tx`.
+
+The synthesized top is `top` with `u_mdio`, `u_phy`, `u_mac`, `u_stack`, and `u_seg7`.
+
+.RTL schematic, board I/O and PHY/MAC ingress
+image::schematics_left.png[Synthesized RTL schematic, left side, board I/O and PHY/MAC ingress,align=center]
+
+.RTL schematic, stack core and RMII egress
+image::schematics_right.png[Synthesized RTL schematic, right side, UDP stack core and RMII egress,align=center]
+
+[cols="1,2",options="header"]
+|===
+| Role | Path
+
+| Board top | `core/rtl/top.sv`
+| Stack core | `core/rtl/stack/udp_stack_core.sv`
+| Sim top | `sim/hdl/udp_loopback_top.sv`
+|===

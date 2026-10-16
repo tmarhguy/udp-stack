@@ -1,0 +1,10 @@
+[#introduction]
+== Introduction
+
+NASDAQ's Mold-wrapped ITCH feed rides on UDP. Before a parser sees a byte, the FPGA has to bring up the LAN8720 over RMII, strip Ethernet framing, demux IPv4, parse UDP, and hand payload bytes to application logic. This repository is that column: 15 SystemVerilog files from RX to TX, so itch can worry about messages.
+
+Today the proof point is a UDP echo. Tomorrow the same MAC, IP, and UDP spine can replace `loopback_echo` with Mold unwrap. Same RJ45, different payload handler.
+
+=== Reading order
+
+<<architecture>> for the loop, <<bring-up>> for the bench, <<implementation>> for the post-route numbers. The engineering log is the 2026-08-08 note in the sidebar.

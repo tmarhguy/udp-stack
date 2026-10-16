@@ -1,0 +1,9 @@
+[#limitations]
+== Known limitations
+
+* ARP is a lab stub. Dynamic lookup is not wired.
+* ITCH parsing is not in this repository. Payload handling stops at echo.
+* TCP, DHCP, and ICMP are dropped.
+* TX checksums are zero-filled. RX does not validate header checksums beyond structure and the filter.
+* A packet is echoed only for IPv4 + UDP + destination match + port `50000`.
+* Published numbers are the ones in <<performance>>. Anything else is `TBD (unmeasured)`.

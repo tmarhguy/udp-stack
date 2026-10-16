@@ -1,0 +1,31 @@
+[#engineering-log]
+== Engineering log
+
+Each note below is the original project log, in chronological order.
+Open the arrow in the sidebar to jump to an entry.
+
+[#log-2026-08-08-understanding-the-udp-stack-and-connecting-to-itch]
+=== 2026-08-08 — Understanding the UDP stack and connecting to ITCH
+
+++++
+<div class="log-entry">
+<p>In my personal exploration (shoutouts to my Wharton folks), I have learned the need for both the <strong>ITCH protocol</strong> and a <strong>UDP stack</strong>. <strong><code>TCP</code></strong> is not your friend if speed is your goal. <strong><code>TCP</code></strong> has the three-way handshake protocol, which, for its own good, severely limits rapid data transmission.</p>
+<p><strong><code>UDP</code></strong>, however, couldn't care less if you received the full data or not; it serves to inject real-time data with the least latency. For first-time engineers in the trading field, the goal is to fire the latest open book data and make live decisions on buying low and selling high.</p>
+<p>---</p>
+<h4>The Hardware Advantage</h4>
+<p>Processing <strong>ITCH feeds</strong> on a standard Von Neumann CPU is bottlenecked by the operating system's networking stack and the latency of mandatory data movement across the memory bus.</p>
+<p>Parsing ITCH in hardware solves that by placing an <strong>FPGA</strong> in the loop instead of relying on <strong>PCIe</strong> bottlenecks and OS interrupts. This way, baked logic can make deterministic decisions in <strong>nanoseconds</strong>, and only inform the "slow" yet powerful CPU when necessary.</p>
+<p>---</p>
+<h4>The Next Hurdle: The Networking Stack</h4>
+<p>How does <strong><code>itch-hw</code></strong>, for instance, receive the data?</p>
+<h5>The <code>TCP</code> Overhead</h5>
+<p><strong><code>TCP</code></strong> uses a three-way handshake. All of this overhead costs bits, and thus adds latency or reduces throughput across a fixed benchmark:</p>
+<ol><li><strong><code>A → B</code></strong> sends <code>SYN</code></li><li><strong><code>B → A</code></strong> sends <code>SYN-ACK</code></li><li><strong><code>A → B</code></strong> sends <code>ACK</code></li></ol>
+<p>Additionally, 100 computers communicating via <strong><code>TCP</code></strong> with a server means the server needs to acknowledge each of them, and that overhead grows exponentially for <strong>1000s of computers</strong>.</p>
+<table><thead><tr><th><strong>Protocol</strong></th><th><strong>Priority</strong></th><th><strong>Analogy</strong></th><th><strong>Data Integrity</strong></th></tr></thead><tbody><tr><td><strong><code>TCP</code></strong></td><td>Reliability</td><td>Downloading a file</td><td>Ensures packet order and maintains all data. Network interruptions pause downloads, never dropping data.</td></tr><tr><td><strong><code>UDP</code></strong></td><td>Speed & Recency</td><td>Live video call</td><td>Drops lagging frames. Always pushes the absolute latest data, ignoring missing packets.</td></tr></tbody></table>
+<h5>The Goal</h5>
+<p><strong><code>UDP</code> multicast</strong> is the answer. If the network lags, we don't want an old frame loaded again. We always want the <strong>absolute latest data</strong>. But someone's got to build that hardware parser, and that's exactly what this project is for:</p>
+<blockquote><p><strong>A custom UDP stack on my FPGA board!</strong></p></blockquote>
+</div>
+++++
+

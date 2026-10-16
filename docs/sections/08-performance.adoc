@@ -1,0 +1,16 @@
+[#performance]
+== Performance
+
+Measured on the 2026-08-10 routed build and the cocotb loopback. Nothing in this table is extrapolated.
+
+[cols="1,1,1",options="header"]
+|===
+| Quantity | Value | Source
+
+| Echo latency | 2 cycles, 20 ns | `sim/results/latency_summary.json`
+| Clock | 100 MHz, WNS +1.985 ns | `top_timing_summary_routed.rpt`
+| LUTs / FFs | 756 / 599 | `top_utilization_placed.rpt`
+| Power | 0.115 W | `top_power_routed.rpt`
+|===
+
+Line-rate throughput of the 100 Mbps PHY is not separately benchmarked. The claim that is measured is the echo latency and the closed timing, not a packets-per-second sweep.

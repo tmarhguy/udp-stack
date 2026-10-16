@@ -1,0 +1,22 @@
+{
+  "title": "Post-route utilization",
+  "subtitle": "2026-08-10 build, xc7a100t, percent of the part",
+  "ylabel": "percent",
+  "categories": [
+    "LUT",
+    "FF",
+    "IOB",
+    "BUFG"
+  ],
+  "series": [
+    {
+      "name": "Used",
+      "values": [
+        1.19,
+        0.47,
+        24.76,
+        6.25
+      ]
+    }
+  ]
+}

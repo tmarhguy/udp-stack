@@ -1,0 +1,18 @@
+{
+  "title": "Post-route slack",
+  "subtitle": "100 MHz constraint, 2026-08-10",
+  "ylabel": "nanoseconds",
+  "categories": [
+    "WNS",
+    "WHS"
+  ],
+  "series": [
+    {
+      "name": "Slack",
+      "values": [
+        1.985,
+        0.037
+      ]
+    }
+  ]
+}

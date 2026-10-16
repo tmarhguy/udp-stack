@@ -1,0 +1,22 @@
+{
+  "title": "Echo latency",
+  "subtitle": "cocotb loopback at 100 MHz",
+  "ylabel": "cycles",
+  "categories": [
+    "Payload echo"
+  ],
+  "series": [
+    {
+      "name": "Measured",
+      "values": [
+        2
+      ]
+    },
+    {
+      "name": "Budget",
+      "values": [
+        20
+      ]
+    }
+  ]
+}

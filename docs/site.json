@@ -1,0 +1,28 @@
+{
+  "name": "UDP/IP Stack",
+  "label": "Documentation",
+  "title": "Packets, with no processor in the path",
+  "description": "Ethernet, IP, and UDP implemented in hardware on a Digilent Nexys A7 board. A packet to port 50000 is echoed in 2 clock cycles.",
+  "url": "",
+  "image": "",
+  "about": "#about",
+  "repository": "https://github.com/tmarhguy/udp-stack",
+  "website": "",
+  "source": "https://github.com/tmarhguy/udp-stack/blob/main/docs/index.adoc",
+  "groups": {
+    "0": "Documentation",
+    "11": "Author"
+  },
+  "branch": "main",
+  "hero": {
+    "image": "images/a7_running.gif",
+    "alt": "Nexys A7 on the bench with Ethernet connected and the link LED lit",
+    "caption": "Nexys A7-100T running the UDP stack"
+  },
+  "accent": "#0e7490",
+  "accentDark": "#67e8f9",
+  "nested": [
+    "engineering-log"
+  ],
+  "logs": "log"
+}

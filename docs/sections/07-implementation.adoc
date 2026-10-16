@@ -1,0 +1,59 @@
+[#implementation]
+== Implementation
+
+Numbers are copied from `core/core.runs/impl_1/` for the 2026-08-10 build. They are not estimated.
+
+[cols="1,1",options="header"]
+|===
+| Report | File
+
+| Timing | `top_timing_summary_routed.rpt`
+| Utilization | `top_utilization_placed.rpt`
+| Power | `top_power_routed.rpt`
+|===
+
+=== Timing at 100 MHz
+
+[cols="1,1",options="header"]
+|===
+| Metric | Value
+
+| WNS | +1.985 ns
+| TNS | 0.000 ns
+| WHS | +0.037 ns
+| THS | 0.000 ns
+| Failing endpoints | 0
+|===
+
+.Setup and hold slack
+image::timing-slack.svg[Post-route slack: WNS 1.985 ns and WHS 0.037 ns,width=800]
+
+.Vivado project summary
+image::proj_summary.png[Vivado project summary with synthesis and implementation complete and WNS +1.985 ns,align=center]
+
+.Vivado dashboard
+image::dashboard.png[Vivado dashboard showing utilization, timing, and power,align=center]
+
+=== Utilization
+
+[cols="1,1,1",options="header"]
+|===
+| Resource | Used | Percent
+
+| Slice LUTs | 756 | 1.19%
+| Slice FFs | 599 | 0.47%
+| Bonded IOB | 52 | 24.76%
+| BUFG | 2 | 6.25%
+|===
+
+The stack is light on fabric and heavy on I/O, which is what a wire-facing design should look like. Vivado's project summary rounds LUT and FF to 1% and I/O to 25%.
+
+=== Power and floorplan
+
+Total on-chip power is 0.115 W (dynamic 0.018 W, device static 0.097 W). Estimated junction temperature is 25.5 °C. Source: `top_power_routed.rpt`.
+
+.Post-route floorplan
+image::impl_device_design.png[Post-route device floorplan on the Artix-7,align=center]
+
+.Synthesis schematic
+image::synth_design.png[Synthesized design schematic,align=center]
